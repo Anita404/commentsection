@@ -1,3 +1,8 @@
-const App = () => {};
+import { GlobalStyles } from "./GlobalStyles";
+// import Comment from "./components/Comments/Comment";
 
-export default App;
+export default function App() {
+  <div>
+    <GlobalStyles />;
+  </div>;
+}

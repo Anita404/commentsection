@@ -7,7 +7,7 @@ export const GlobalStyles = createGlobalStyle`
         padding: 0;
         height: 100vh;
         font-family: 'Rubik';
-        background-color: #334253;
+        background: hsl(239, 57%, 85%);
     }
     * {
         margin: 0;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const CommentContainer = styled.div`
   background: white;
   width: 730px;
-  height: 144px;
+  height: 167px;
   margin-top: 64px;
   margin-left: 355px;
   border-radius: 8px;
@@ -16,7 +16,7 @@ export const StyledLeftContainer = styled.div`
 
 export const Input = styled.div`
   line-height: 24px;
-  margin-top: 5px;
+  margin-top: 15px;
   width: 618px;
   font-family: "rubik";
   font-weight: 400;
@@ -24,8 +24,6 @@ export const Input = styled.div`
 `;
 
 export const Number = styled.div`
-  line-height: 24px;
-  width: 618px;
   font-weight: 500;
   color: #5357b6;
 `;
@@ -87,7 +85,7 @@ export const DateContainer = styled.div`
   margin-left: 16px;
 `;
 
-export const ReplyContainer = styled.div`
+export const ReplyContainer = styled.button`
   height: 24px;
   width: 66px;
   color: #5357b6;
@@ -97,5 +95,6 @@ export const ReplyContainer = styled.div`
   margin-left: auto;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  cursor: pointer;
 `;

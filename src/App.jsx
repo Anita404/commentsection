@@ -1,4 +1,5 @@
 import { GlobalStyles } from "./GlobalStyles";
+import AddComment from "./components/AddComment";
 import Comment from "./components/Comments/Comment";
 
 export default function App() {
@@ -6,6 +7,7 @@ export default function App() {
     <div>
       <GlobalStyles />
       <Comment />
+      <AddComment />
     </div>
   );
 }

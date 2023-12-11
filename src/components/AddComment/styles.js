@@ -1,47 +1,57 @@
 import styled from "styled-components";
 
 export const CommentContainer = styled.div`
+  height: 120px;
   width: 730px;
-  height: 144px;
+  position: sticky;
+  bottom: 10px;
   background-color: #fff;
-  margin-top: 64px;
-  margin-left: 355px;
   border-radius: 8px;
   display: flex;
+  gap: 16px;
+  padding: 24px;
+
+  @media (max-width: 375px) {
+    flex-direction: column;
+    width: 343px;
+    height: 173px;
+    padding: 16px;
+    position: sticky;
+  }
+`;
+
+export const MobileContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const ProfilePicture = styled.div`
-  width: 40px;
   height: 40px;
+  width: 40px;
   border-radius: 40px;
-  margin-top: 28px;
-  margin-left: 24px;
   background-color: blue;
 `;
 
 export const InputContainer = styled.div`
-  width: 506px;
   height: 96px;
   border-radius: 8px;
   border-style: solid;
   border-color: #e9ebf0;
   border-width: 1px;
-  margin-top: 28px;
-  margin-left: 20px;
+  width: 528px;
+  padding-left: 24px;
+  padding-top: 12px;
+
+  @media (max-width: 375px) {
+    width: 311px;
+  }
 `;
 
 export const InputText = styled.input`
   height: 24px;
-  width: 128px;
-  margin-left: 24px;
-  margin-top: 12px;
-  font-family: "rubik";
 `;
 
 export const SendButton = styled.button`
-  margin-right: 24px;
-  margin-left: 10px;
-  margin-top: 28px;
   height: 48px;
   width: 104px;
   border-radius: 8px;

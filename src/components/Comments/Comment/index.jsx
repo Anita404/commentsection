@@ -11,11 +11,12 @@ import {
   HandleContainer,
   DateContainer,
   ReplyContainer,
+  ProfileInfo,
 } from "./styles";
 
-import PlusIcon from "../../../../images/PlusIcon.svg?react";
-import MinusIcon from "../../../../images/MinusIcon.svg?react";
-import ReplyIcon from "../../../../images/ReplyIcon.svg?react";
+import PlusIcon from "../../../assets/PlusIcon.svg?react";
+import MinusIcon from "../../../assets/MinusIcon.svg?react";
+import ReplyIcon from "../../../assets/ReplyIcon.svg?react";
 
 const Comment = () => {
   return (
@@ -31,9 +32,11 @@ const Comment = () => {
       </StyledLeftContainer>
       <StyledRightContainer>
         <Header>
-          <ProfilePicture />
-          <HandleContainer> amyrobson </HandleContainer>
-          <DateContainer> 1 month ago </DateContainer>
+          <ProfileInfo>
+            <ProfilePicture />
+            <HandleContainer> amyrobson </HandleContainer>
+            <DateContainer> 1 month ago </DateContainer>
+          </ProfileInfo>
           <ReplyContainer>
             <ReplyIcon />
             Reply

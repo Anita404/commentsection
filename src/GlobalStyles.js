@@ -6,11 +6,15 @@ export const GlobalStyles = createGlobalStyle`
         box-sizing: border-box;
         margin: 0;
         padding: 0;
-        height: 100vh;
         background: #F5F6FA;
         font-family: "Rubik Variable";
         font-size: 16px;
     }
+
+    #root {
+        height: 100%;
+    }
+    
     * {
         margin: 0;
         padding: 0;

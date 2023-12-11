@@ -1,13 +1,24 @@
+import styled from "styled-components";
 import { GlobalStyles } from "./GlobalStyles";
 import AddComment from "./components/AddComment";
-import Comment from "./components/Comments/Comment";
+import Comments from "./components/Comments";
+
+const Container = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 64px 0px 64px;
+`;
 
 export default function App() {
   return (
-    <div>
+    <Container>
       <GlobalStyles />
-      <Comment />
+      <Comments />
       <AddComment />
-    </div>
+    </Container>
   );
 }

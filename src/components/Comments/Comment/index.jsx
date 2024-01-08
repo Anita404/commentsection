@@ -12,43 +12,51 @@ import {
   DateContainer,
   ReplyContainer,
   ProfileInfo,
+  NestedComments,
+  ReplyThread,
 } from "./styles";
 
 import PlusIcon from "../../../assets/PlusIcon.svg?react";
 import MinusIcon from "../../../assets/MinusIcon.svg?react";
 import ReplyIcon from "../../../assets/ReplyIcon.svg?react";
 
-const Comment = () => {
+const Comment = ({ data: { score, user, createdAt, content, replies } }) => {
   return (
-    <CommentContainer>
-      <StyledLeftContainer>
-        <LikeButton>
-          <InnerContainer>
-            <PlusIcon onClick={""} />
-            <Number> 5 </Number>
-            <MinusIcon onClick={""} />
-          </InnerContainer>
-        </LikeButton>
-      </StyledLeftContainer>
-      <StyledRightContainer>
-        <Header>
-          <ProfileInfo>
-            <ProfilePicture />
-            <HandleContainer> amyrobson </HandleContainer>
-            <DateContainer> 1 month ago </DateContainer>
-          </ProfileInfo>
-          <ReplyContainer>
-            <ReplyIcon />
-            Reply
-          </ReplyContainer>
-        </Header>
-        <Input>
-          Impressive! Though it seems the drag feature could be improved. But
-          overall it looks incredible. You’ve nailed the design and the
-          responsiveness at various breakpoints works really well.
-        </Input>
-      </StyledRightContainer>
-    </CommentContainer>
+    <div>
+      <CommentContainer>
+        <StyledLeftContainer>
+          <LikeButton>
+            <InnerContainer>
+              <PlusIcon onClick={""} />
+              <Number> {score} </Number>
+              <MinusIcon onClick={""} />
+            </InnerContainer>
+          </LikeButton>
+        </StyledLeftContainer>
+        <StyledRightContainer>
+          <Header>
+            <ProfileInfo>
+              <ProfilePicture />
+              <HandleContainer> {user.username} </HandleContainer>
+              <DateContainer> {createdAt} </DateContainer>
+            </ProfileInfo>
+            <ReplyContainer>
+              <ReplyIcon />
+              Reply
+            </ReplyContainer>
+          </Header>
+          <Input>{content}</Input>
+        </StyledRightContainer>
+      </CommentContainer>
+      {replies && (
+        <NestedComments>
+          <ReplyThread />
+          {replies.map((comment, index) => (
+            <Comment key={index} data={comment} />
+          ))}
+        </NestedComments>
+      )}
+    </div>
   );
 };
 

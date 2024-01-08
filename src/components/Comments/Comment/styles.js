@@ -99,3 +99,13 @@ export const ReplyContainer = styled.button`
   gap: 8px;
   cursor: pointer;
 `;
+
+export const NestedComments = styled.div`
+  padding: 20px 0px 24px 43px;
+`;
+
+export const ReplyThread = styled.div`
+  width: 2px;
+  background: #e9ebf0;
+  margin-right: 43px;
+`;

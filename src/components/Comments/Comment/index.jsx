@@ -23,9 +23,9 @@ const Comment = () => {
       <StyledLeftContainer>
         <LikeButton>
           <InnerContainer>
-            <PlusIcon />
+            <PlusIcon onClick={""} />
             <Number> 5 </Number>
-            <MinusIcon />
+            <MinusIcon onClick={""} />
           </InnerContainer>
         </LikeButton>
       </StyledLeftContainer>

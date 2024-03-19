@@ -5,15 +5,23 @@ export const fetchComments = async () => {
   return json;
 };
 
-export const postComment = async (comment) => {
-  const data = await fetch("http://localhost:8080/add-comment", {
+export const postComment = (comment, parentId) =>
+  fetch("http://localhost:8080/add-comment", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     mode: "no-cors",
-    body: JSON.stringify({ content: comment, userId: 3 }),
+    body: JSON.stringify({ content: comment, userId: 3, parentId }),
   });
 
-  return data;
-};
+export const deleteComment = (id) =>
+  fetch(`http://localhost:8080/delete-comment?id=${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      mode: "no-cors",
+    },
+  });
+
+export const likeCommment = () => {};

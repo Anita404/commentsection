@@ -35,9 +35,11 @@ import DeleteIcon from "../../../assets/DeleteIcon.svg?react";
 import EditIcon from "../../../assets/EditIcon.svg?react";
 import { useState } from "react";
 import AddComment from "../../AddComment";
+import { deleteComment } from "../../../api";
+import useCommentsStore from "../../../stores";
 
 const Comment = ({
-  data: { score, createdAt, content, replies, user },
+  data: { score, createdAt, content, replies, user, id },
   width = "730px",
 }) => {
   const [count, setCount] = useState(score);
@@ -45,6 +47,14 @@ const Comment = ({
   const [reply, setReply] = useState(false);
 
   const [open, setOpen] = useState(false);
+
+  const { fetch } = useCommentsStore((state) => state);
+
+  const handleDelete = async () => {
+    await deleteComment(id);
+    fetch();
+    setOpen(false);
+  };
 
   return (
     <div>
@@ -61,7 +71,7 @@ const Comment = ({
         <StyledRightContainer>
           <Header>
             <ProfileInfo>
-              <ProfilePicture image={user.image} />
+              <ProfilePicture $image={user.image} />
               <HandleContainer> {user.name} </HandleContainer>
               <DateContainer> {createdAt} </DateContainer>
             </ProfileInfo>
@@ -70,23 +80,6 @@ const Comment = ({
                 <DeleteContainer onClick={() => setOpen(true)}>
                   <DeleteIcon />
                   Delete
-                  {open ? (
-                    <PopupContainer>
-                      <PopupBox>
-                        <PopupHeader> Delete comment </PopupHeader>
-                        <PopupBody>
-                          Are you sure you want to delete this comment? This
-                          will remove the comment and cannot be undone.
-                        </PopupBody>
-                        <PopupButtonsContainer>
-                          <DeleteButton> YES, DELETE </DeleteButton>
-                          <CancelButton onClick={() => setOpen(false)}>
-                            NO, CANCEL
-                          </CancelButton>
-                        </PopupButtonsContainer>
-                      </PopupBox>
-                    </PopupContainer>
-                  ) : null}
                 </DeleteContainer>
                 <EditContainer>
                   <EditIcon />
@@ -107,6 +100,7 @@ const Comment = ({
         <ReplyContainer>
           <AddComment
             submitButtonText="reply"
+            parentId={id}
             data={{
               currentUser: {
                 image: {
@@ -128,6 +122,23 @@ const Comment = ({
             ))}
           </RepliesContainer>
         </NestedComments>
+      )}
+      {open && (
+        <PopupContainer>
+          <PopupBox>
+            <PopupHeader> Delete comment </PopupHeader>
+            <PopupBody>
+              Are you sure you want to delete this comment? This will remove the
+              comment and cannot be undone.
+            </PopupBody>
+            <PopupButtonsContainer>
+              <DeleteButton onClick={handleDelete}>YES, DELETE</DeleteButton>
+              <CancelButton onClick={() => setOpen(false)}>
+                NO, CANCEL
+              </CancelButton>
+            </PopupButtonsContainer>
+          </PopupBox>
+        </PopupContainer>
       )}
     </div>
   );

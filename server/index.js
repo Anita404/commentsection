@@ -17,9 +17,9 @@ const postComment = async (req, res) => {
     body += chunk.toString();
   });
   req.on("end", async () => {
-    const { content, userId } = JSON.parse(body);
+    const { content, userId, parentId } = JSON.parse(body);
     const result = await pool.query(
-      `INSERT INTO comments (content, "userId") VALUES ('${content}', ${userId})`
+      `INSERT INTO comments (content, "userId", "parentId") VALUES ('${content}', ${userId}, ${parentId})`
     );
 
     res.writeHead(200, { "Content-Type": "application/json" });
@@ -35,10 +35,18 @@ const getComments = async (req, res) => {
   const comments = await pool.query("SELECT * FROM comments ORDER BY id");
   const users = await pool.query(`SELECT * FROM "user"`);
 
-  const result = comments.rows.map((comment) => ({
-    ...comment,
-    user: users.rows.find((user) => user.id === comment.userId),
-  }));
+  const result = comments.rows
+    .map((com) => ({
+      ...com,
+      user: users.rows.find((user) => user.id === com.userId),
+      replies: comments.rows
+        .filter((comment) => comment.parentId === com.id)
+        .map((comment) => ({
+          ...comment,
+          user: users.rows.find((user) => user.id === comment.userId),
+        })),
+    }))
+    .filter((comment) => !comment.parentId);
 
   res.writeHead(200, { "Content-Type": "application/json" });
   res.end(
@@ -46,6 +54,21 @@ const getComments = async (req, res) => {
       data: result,
     })
   );
+};
+
+const deleteComment = async (req, res) => {
+  const { id } = url.parse(req.url, true).query;
+
+  console.log(id);
+  try {
+    await pool.query(`DELETE FROM comments WHERE id=${id}`);
+
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end();
+  } catch (error) {
+    console.error(error);
+    res.writeHead(500, { "Content-Type": "application/json" });
+  }
 };
 
 const getUsers = async (req, res) => {
@@ -64,9 +87,9 @@ const server = createServer(async (req, res) => {
   const path = parsedUrl.pathname;
 
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST");
+  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST, DELETE");
   res.setHeader("Access-Control-Max-Age", 2592000); // 30 days
-  res.setHeader("Access-Control-Allow-Headers", "content-type");
+  res.setHeader("Access-Control-Allow-Headers", "*");
 
   switch (path) {
     case "/":
@@ -79,6 +102,9 @@ const server = createServer(async (req, res) => {
       break;
     case "/add-comment":
       postComment(req, res);
+      break;
+    case "/delete-comment":
+      deleteComment(req, res);
       break;
     default:
       break;

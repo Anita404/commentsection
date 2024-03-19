@@ -12,14 +12,18 @@ import { useEffect } from "react";
 import { postComment } from "../../api";
 import useCommentsStore from "../../stores";
 
-const AddComment = ({ data: { currentUser }, submitButtonText = "send" }) => {
+const AddComment = ({
+  data: { currentUser },
+  submitButtonText = "send",
+  parentId = "",
+}) => {
   const { fetch } = useCommentsStore((state) => state);
 
   const [screenWidth, setScreenWidth] = useState(innerWidth);
   const [content, setContent] = useState("");
 
   const handleSend = async () => {
-    await postComment(content);
+    await postComment(content, parentId);
     fetch();
   };
 
@@ -47,7 +51,7 @@ const AddComment = ({ data: { currentUser }, submitButtonText = "send" }) => {
         </>
       ) : (
         <>
-          <ProfilePicture image={currentUser?.image.png} />
+          <ProfilePicture $image={currentUser?.image.png} />
           <InputContainer>
             <InputText
               placeholder="Add a comment..."

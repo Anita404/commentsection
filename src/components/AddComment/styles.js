@@ -50,6 +50,7 @@ export const InputContainer = styled.div`
 
 export const InputText = styled.input`
   height: 24px;
+  width: 500px;
 `;
 
 export const SendButton = styled.button`

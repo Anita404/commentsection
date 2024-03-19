@@ -48,9 +48,19 @@ export const InputContainer = styled.div`
   }
 `;
 
-export const InputText = styled.input`
-  height: 24px;
-  width: 500px;
+export const InputText = styled.textarea`
+  height: 90px;
+  width: 520px;
+  white-space: pre-wrap;
+  resize: none;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+
+  &:focus {
+    background-color: white;
+  }
 `;
 
 export const SendButton = styled.button`

@@ -8,6 +8,8 @@ export const CommentContainer = styled.div`
   display: flex;
   padding: 24px;
   margin-bottom: 20px;
+  height: fit-content;
+  word-break: break-all;
 
   &:last-child {
     margin-bottom: 0px;

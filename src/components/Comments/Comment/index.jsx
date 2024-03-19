@@ -48,12 +48,19 @@ const Comment = ({
 
   const [open, setOpen] = useState(false);
 
+  const [showReplyContainer, setShowReplyContainer] = useState(true); //how does AddComment have access to this? Can props somehow pass state?
+
   const { fetch } = useCommentsStore((state) => state);
 
   const handleDelete = async () => {
     await deleteComment(id);
     fetch();
     setOpen(false);
+  };
+
+  const handleCommentSubmit = () => {
+    setReply(false);
+    setShowReplyContainer(true);
   };
 
   return (
@@ -96,11 +103,12 @@ const Comment = ({
           <Input>{content}</Input>
         </StyledRightContainer>
       </CommentContainer>
-      {reply && (
+      {showReplyContainer && reply && (
         <ReplyContainer>
           <AddComment
             submitButtonText="reply"
             parentId={id}
+            onCommentSubmit={handleCommentSubmit}
             data={{
               currentUser: {
                 image: {

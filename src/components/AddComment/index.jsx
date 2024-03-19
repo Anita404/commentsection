@@ -16,6 +16,7 @@ const AddComment = ({
   data: { currentUser },
   submitButtonText = "send",
   parentId = "",
+  onCommentSubmit,
 }) => {
   const { fetch } = useCommentsStore((state) => state);
 
@@ -25,6 +26,7 @@ const AddComment = ({
   const handleSend = async () => {
     await postComment(content, parentId);
     fetch();
+    onCommentSubmit();
   };
 
   useEffect(() => {

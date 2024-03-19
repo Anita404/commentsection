@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { GlobalStyles } from "./GlobalStyles";
 import AddComment from "./components/AddComment";
 import Comments from "./components/Comments";
+import { getComments } from "./api";
+import { useEffect } from "react";
 
 const Container = styled.div`
   height: 100%;
@@ -14,6 +16,10 @@ const Container = styled.div`
 `;
 
 export default function App() {
+  useEffect(() => {
+    getComments();
+  }, []);
+
   return (
     <Container>
       <GlobalStyles />

@@ -1,8 +1,11 @@
 import { GlobalStyles } from "./GlobalStyles";
-// import Comment from "./components/Comments/Comment";
+import Comment from "./components/Comments/Comment";
 
 export default function App() {
-  <div>
-    <GlobalStyles />;
-  </div>;
+  return (
+    <div>
+      <GlobalStyles />
+      <Comment />
+    </div>
+  );
 }

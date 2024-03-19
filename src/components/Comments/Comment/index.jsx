@@ -1,7 +1,7 @@
 import { Container } from "./styles";
 
 const Comment = () => {
-  <Container />;
+  return <Container />;
 };
 
 export default Comment;

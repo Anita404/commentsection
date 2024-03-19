@@ -123,7 +123,7 @@ export const ReplyContainer = styled.div`
   margin-bottom: 20px;
 `;
 
-export const DeleteContainer = styled.div`
+export const DeleteContainer = styled.button`
   font-weight: 450;
   line-height: 24px;
   letter-spacing: 0px;
@@ -132,6 +132,11 @@ export const DeleteContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
+  cursor: pointer;
+
+  &:hover {
+    color: gray;
+  }
 `;
 
 export const EditContainer = styled(DeleteContainer)`
@@ -142,4 +147,77 @@ export const ReplyOptions = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+`;
+
+// Pop-up related styles
+
+export const PopupContainer = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
+
+export const PopupBox = styled.div`
+  position: absolute;
+  width: 400px;
+  height: 252px;
+  top: 250px;
+  left: 520px;
+  margin: auto;
+  border-radius: 7px;
+  background: white;
+`;
+
+export const PopupHeader = styled.div`
+  position: absolute;
+  width: 193px;
+  height: 28px;
+  top: 32px;
+  left: 32px;
+  font-size: 24px;
+  font-weight: 460;
+  line-height: 28px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #334253;
+`;
+
+export const PopupBody = styled.div`
+  position: absolute;
+  width: 336px;
+  height: 72px;
+  top: 80px;
+  left: 32px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #67727e;
+`;
+
+export const PopupButtonsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 336px;
+  height: 48px;
+  top: 172px;
+  left: 32px;
+  position: absolute;
+`;
+
+export const DeleteButton = styled.button`
+  border-radius: 8px;
+  text-align: center;
+  width: 161px;
+  height: 48px;
+  color: white;
+  background-color: #ed6368;
+`;
+
+export const CancelButton = styled(DeleteButton)`
+  background-color: #67727e;
 `;

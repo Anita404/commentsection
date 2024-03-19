@@ -19,6 +19,13 @@ import {
   DeleteContainer,
   EditContainer,
   ReplyOptions,
+  PopupContainer,
+  PopupBody,
+  PopupHeader,
+  PopupBox,
+  PopupButtonsContainer,
+  DeleteButton,
+  CancelButton,
 } from "./styles";
 
 import PlusIcon from "../../../assets/PlusIcon.svg?react";
@@ -36,6 +43,8 @@ const Comment = ({
   const [count, setCount] = useState(score);
 
   const [reply, setReply] = useState(false);
+
+  const [open, setOpen] = useState(false);
 
   return (
     <div>
@@ -58,9 +67,26 @@ const Comment = ({
             </ProfileInfo>
             {user.id === 3 ? (
               <ReplyOptions>
-                <DeleteContainer>
+                <DeleteContainer onClick={() => setOpen(true)}>
                   <DeleteIcon />
                   Delete
+                  {open ? (
+                    <PopupContainer>
+                      <PopupBox>
+                        <PopupHeader> Delete comment </PopupHeader>
+                        <PopupBody>
+                          Are you sure you want to delete this comment? This
+                          will remove the comment and cannot be undone.
+                        </PopupBody>
+                        <PopupButtonsContainer>
+                          <DeleteButton> YES, DELETE </DeleteButton>
+                          <CancelButton onClick={() => setOpen(false)}>
+                            NO, CANCEL
+                          </CancelButton>
+                        </PopupButtonsContainer>
+                      </PopupBox>
+                    </PopupContainer>
+                  ) : null}
                 </DeleteContainer>
                 <EditContainer>
                   <EditIcon />

@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const CommentContainer = styled.div`
   height: 120px;
   width: 730px;
-  position: sticky;
+  /* position: sticky; */
   bottom: 0px;
   background-color: #fff;
   border-radius: 8px;

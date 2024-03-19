@@ -10,20 +10,27 @@ import {
   Number,
   HandleContainer,
   DateContainer,
-  ReplyContainer,
+  ReplyButton,
   ProfileInfo,
   NestedComments,
   ReplyThread,
+  RepliesContainer,
+  ReplyContainer,
 } from "./styles";
 
 import PlusIcon from "../../../assets/PlusIcon.svg?react";
 import MinusIcon from "../../../assets/MinusIcon.svg?react";
 import ReplyIcon from "../../../assets/ReplyIcon.svg?react";
+import AddComment from "../../AddComment";
 
-const Comment = ({ data: { score, user, createdAt, content, replies } }) => {
+const Comment = ({
+  data: { currentUser, score, user, createdAt, content, replies },
+  width = "730px",
+  show = false,
+}) => {
   return (
     <div>
-      <CommentContainer>
+      <CommentContainer width={width}>
         <StyledLeftContainer>
           <LikeButton>
             <InnerContainer>
@@ -36,24 +43,31 @@ const Comment = ({ data: { score, user, createdAt, content, replies } }) => {
         <StyledRightContainer>
           <Header>
             <ProfileInfo>
-              <ProfilePicture />
+              <ProfilePicture image={user.image.png} />
               <HandleContainer> {user.username} </HandleContainer>
               <DateContainer> {createdAt} </DateContainer>
             </ProfileInfo>
-            <ReplyContainer>
+            <ReplyButton onClick={""}>
               <ReplyIcon />
               Reply
-            </ReplyContainer>
+            </ReplyButton>
           </Header>
           <Input>{content}</Input>
         </StyledRightContainer>
       </CommentContainer>
+      {show && (
+        <ReplyContainer>
+          <AddComment data={currentUser && currentUser} />
+        </ReplyContainer>
+      )}
       {replies && (
         <NestedComments>
           <ReplyThread />
-          {replies.map((comment, index) => (
-            <Comment key={index} data={comment} />
-          ))}
+          <RepliesContainer>
+            {replies.map((comment, index) => (
+              <Comment key={index} data={comment} width={"620px"} />
+            ))}
+          </RepliesContainer>
         </NestedComments>
       )}
     </div>

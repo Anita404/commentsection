@@ -2,13 +2,12 @@ import styled from "styled-components";
 
 export const CommentContainer = styled.div`
   background: white;
-  width: 730px;
+  width: ${(props) => props.width};
   height: 120px;
   border-radius: 8px;
   display: flex;
   padding: 24px;
-
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 
   &:last-child {
     margin-bottom: 0px;
@@ -62,7 +61,8 @@ export const ProfilePicture = styled.div`
   width: 32px;
   border-radius: 32px;
   border-color: white;
-  background-color: #000;
+  background-image: url(${(props) => props.image});
+  background-size: contain;
 `;
 
 export const InnerContainer = styled.div`
@@ -88,7 +88,7 @@ export const DateContainer = styled.div`
   line-height: 24px;
 `;
 
-export const ReplyContainer = styled.button`
+export const ReplyButton = styled.button`
   height: 24px;
   color: #5357b6;
   font-style: normal;
@@ -101,11 +101,22 @@ export const ReplyContainer = styled.button`
 `;
 
 export const NestedComments = styled.div`
-  padding: 20px 0px 24px 43px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 43px;
 `;
 
 export const ReplyThread = styled.div`
   width: 2px;
   background: #e9ebf0;
-  margin-right: 43px;
+`;
+
+export const RepliesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+export const ReplyContainer = styled.div`
+  margin-bottom: 20px;
 `;

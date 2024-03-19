@@ -10,7 +10,7 @@ import {
 } from "./styles";
 import { useEffect } from "react";
 
-const AddComment = () => {
+const AddComment = ({ data: { currentUser } }) => {
   const [screenWidth, setScreenWidth] = useState(innerWidth);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const AddComment = () => {
         </>
       ) : (
         <>
-          <ProfilePicture />
+          <ProfilePicture image={currentUser?.image.png} />
           <InputContainer>
             <InputText placeholder="Add a comment..." />
           </InputContainer>

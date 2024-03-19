@@ -18,7 +18,17 @@ export default function App() {
     <Container>
       <GlobalStyles />
       <Comments />
-      <AddComment />
+      <AddComment
+        data={{
+          currentUser: {
+            image: {
+              png: "./avatars/image-juliusomo.png",
+              webp: "./avatars/image-juliusomo.webp",
+            },
+            username: "juliusomo",
+          },
+        }}
+      />
     </Container>
   );
 }

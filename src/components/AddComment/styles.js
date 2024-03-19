@@ -29,7 +29,8 @@ export const ProfilePicture = styled.div`
   height: 40px;
   width: 40px;
   border-radius: 40px;
-  background-color: blue;
+  background-image: url(${(props) => props.image});
+  background-size: contain;
 `;
 
 export const InputContainer = styled.div`

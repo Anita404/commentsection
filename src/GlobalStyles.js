@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import "@fontsource-variable/rubik";
 
 export const GlobalStyles = createGlobalStyle`
     body {
@@ -6,8 +7,9 @@ export const GlobalStyles = createGlobalStyle`
         margin: 0;
         padding: 0;
         height: 100vh;
-        font-family: 'Rubik';
-        background: hsl(239, 57%, 85%);
+        background: #F5F6FA;
+        font-family: "Rubik Variable";
+        font-size: 16px;
     }
     * {
         margin: 0;

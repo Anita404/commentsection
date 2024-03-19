@@ -26,17 +26,19 @@ import {
   PopupButtonsContainer,
   DeleteButton,
   CancelButton,
+  StyledPlusIcon,
+  StyledMinusIcon,
+  EditedComment,
+  UpdateButton,
 } from "./styles";
-
-import PlusIcon from "../../../assets/PlusIcon.svg?react";
-import MinusIcon from "../../../assets/MinusIcon.svg?react";
 import ReplyIcon from "../../../assets/ReplyIcon.svg?react";
 import DeleteIcon from "../../../assets/DeleteIcon.svg?react";
 import EditIcon from "../../../assets/EditIcon.svg?react";
 import { useState } from "react";
 import AddComment from "../../AddComment";
-import { deleteComment } from "../../../api";
+import { deleteComment, updateComment, updateScore } from "../../../api";
 import useCommentsStore from "../../../stores";
+import { InputText, SendButton } from "../../AddComment/styles";
 
 const Comment = ({
   data: { score, createdAt, content, replies, user, id },
@@ -48,7 +50,9 @@ const Comment = ({
 
   const [open, setOpen] = useState(false);
 
-  const [showReplyContainer, setShowReplyContainer] = useState(true); //how does AddComment have access to this? Can props somehow pass state?
+  const [isEditing, setIsEditing] = useState(false);
+
+  const [editedContent, setEditedContent] = useState(content);
 
   const { fetch } = useCommentsStore((state) => state);
 
@@ -58,9 +62,25 @@ const Comment = ({
     setOpen(false);
   };
 
+  const handleScoreUpdate = (value) => {
+    if (value === "plus") {
+      setCount(count + 1);
+      updateScore({ score: count + 1, id });
+    }
+    if (value === "minus" && count > 0) {
+      setCount(count - 1);
+      updateScore({ score: count - 1, id });
+    }
+  };
+
+  const handleCommentUpdate = async () => {
+    await updateComment({ id, content: editedContent });
+    fetch();
+    setIsEditing(false);
+  };
+
   const handleCommentSubmit = () => {
     setReply(false);
-    setShowReplyContainer(true);
   };
 
   return (
@@ -69,9 +89,9 @@ const Comment = ({
         <StyledLeftContainer>
           <LikeButton>
             <InnerContainer>
-              <PlusIcon onClick={() => setCount(count + 1)} />
+              <StyledPlusIcon onClick={() => handleScoreUpdate("plus")} />
               <Number> {count} </Number>
-              <MinusIcon onClick={() => count !== 0 && setCount(count - 1)} />
+              <StyledMinusIcon onClick={() => handleScoreUpdate("minus")} />
             </InnerContainer>
           </LikeButton>
         </StyledLeftContainer>
@@ -84,11 +104,17 @@ const Comment = ({
             </ProfileInfo>
             {user.id === 3 ? (
               <ReplyOptions>
-                <DeleteContainer onClick={() => setOpen(true)}>
+                <DeleteContainer
+                  disabled={isEditing}
+                  onClick={() => setOpen(true)}
+                >
                   <DeleteIcon />
                   Delete
                 </DeleteContainer>
-                <EditContainer>
+                <EditContainer
+                  onClick={() => setIsEditing(true)}
+                  disabled={isEditing}
+                >
                   <EditIcon />
                   Edit
                 </EditContainer>
@@ -100,10 +126,21 @@ const Comment = ({
               </ReplyButton>
             )}
           </Header>
-          <Input>{content}</Input>
+          {isEditing ? (
+            <EditedComment>
+              <InputText
+                onChange={(e) => setEditedContent(e.target.value)}
+                value={editedContent}
+              />
+              <UpdateButton onClick={handleCommentUpdate}>UPDATE</UpdateButton>
+            </EditedComment>
+          ) : (
+            <Input> {content}</Input>
+          )}
         </StyledRightContainer>
       </CommentContainer>
-      {showReplyContainer && reply && (
+
+      {reply && (
         <ReplyContainer>
           <AddComment
             submitButtonText="reply"

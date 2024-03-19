@@ -2,7 +2,6 @@ import { useState } from "react";
 import { MOBILE_WIDTH } from "../../utils/constants";
 import {
   CommentContainer,
-  InputContainer,
   InputText,
   MobileContainer,
   ProfilePicture,
@@ -15,7 +14,7 @@ import useCommentsStore from "../../stores";
 const AddComment = ({
   data: { currentUser },
   submitButtonText = "send",
-  parentId = "",
+  parentId,
   onCommentSubmit,
 }) => {
   const { fetch } = useCommentsStore((state) => state);
@@ -26,7 +25,8 @@ const AddComment = ({
   const handleSend = async () => {
     await postComment(content, parentId);
     fetch();
-    onCommentSubmit();
+    onCommentSubmit && onCommentSubmit();
+    setContent("");
   };
 
   useEffect(() => {
@@ -43,9 +43,10 @@ const AddComment = ({
     <CommentContainer>
       {screenWidth <= MOBILE_WIDTH ? (
         <>
-          <InputContainer>
-            <InputText placeholder="Add a comment..." />
-          </InputContainer>
+          <InputText
+            placeholder="Add a comment..."
+            onChange={(e) => setContent(e.target.value)}
+          />
           <MobileContainer>
             <ProfilePicture />
             <SendButton> SEND </SendButton>
@@ -54,13 +55,11 @@ const AddComment = ({
       ) : (
         <>
           <ProfilePicture $image={currentUser?.image.png} />
-          <InputContainer>
-            <InputText
-              placeholder="Add a comment..."
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            />
-          </InputContainer>
+          <InputText
+            placeholder="Add a comment..."
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
           <SendButton onClick={handleSend}>{submitButtonText}</SendButton>
         </>
       )}

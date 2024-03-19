@@ -3,13 +3,14 @@ import styled from "styled-components";
 export const CommentContainer = styled.div`
   height: 120px;
   width: 730px;
-  /* position: sticky; */
+  position: sticky;
   bottom: 0px;
   background-color: #fff;
   border-radius: 8px;
   display: flex;
   gap: 16px;
   padding: 24px;
+  z-index: 1;
 
   @media (max-width: 375px) {
     flex-direction: column;
@@ -33,33 +34,24 @@ export const ProfilePicture = styled.div`
   background-size: contain;
 `;
 
-export const InputContainer = styled.div`
-  height: 96px;
-  border-radius: 8px;
-  border-style: solid;
-  border-color: #e9ebf0;
-  border-width: 1px;
-  width: 528px;
-  padding-left: 24px;
-  padding-top: 12px;
-
-  @media (max-width: 375px) {
-    width: 311px;
-  }
-`;
-
 export const InputText = styled.textarea`
   height: 90px;
-  width: 520px;
+  width: 100%;
   white-space: pre-wrap;
   resize: none;
   border: none;
   outline: none;
   font-family: inherit;
   font-size: inherit;
+  border-radius: 8px;
+  border-style: solid;
+  border-color: #e9ebf0;
+  border-width: 1px;
+  padding: 15px;
+  box-sizing: border-box;
 
   &:focus {
-    background-color: white;
+    border: 1px solid rgba(83, 87, 182, 1);
   }
 `;
 

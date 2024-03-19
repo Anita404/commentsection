@@ -5,7 +5,7 @@ export const fetchComments = async () => {
   return json;
 };
 
-export const postComment = (comment, parentId) =>
+export const postComment = (comment, parentId = null) =>
   fetch("http://localhost:8080/add-comment", {
     method: "POST",
     headers: {
@@ -24,4 +24,21 @@ export const deleteComment = (id) =>
     },
   });
 
-export const likeCommment = () => {};
+export const updateComment = ({ id, content }) =>
+  fetch(`http://localhost:8080/update-comment?id=${id}&content=${content}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      mode: "no-cors",
+    },
+  });
+
+export const updateScore = ({ score, id }) => {
+  fetch(`http://localhost:8080/update-score?id=${id}&score=${score}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      mode: "no-cors",
+    },
+  });
+};

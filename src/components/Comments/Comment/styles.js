@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import PlusIcon from "../../../assets/PlusIcon.svg?react";
+import MinusIcon from "../../../assets/MinusIcon.svg?react";
+import { SendButton } from "../../AddComment/styles";
 
 export const CommentContainer = styled.div`
   background: white;
@@ -139,6 +142,10 @@ export const DeleteContainer = styled.button`
   &:hover {
     color: gray;
   }
+
+  &:disabled {
+    opacity: 0.5;
+  }
 `;
 
 export const EditContainer = styled(DeleteContainer)`
@@ -151,6 +158,16 @@ export const ReplyOptions = styled.div`
   gap: 10px;
 `;
 
+export const EditedComment = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+export const UpdateButton = styled(SendButton)`
+  align-self: flex-end;
+`;
+
 // Pop-up related styles
 
 export const PopupContainer = styled.div`
@@ -160,6 +177,7 @@ export const PopupContainer = styled.div`
   top: 0px;
   left: 0px;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
 `;
 
 export const PopupBox = styled.div`
@@ -228,5 +246,13 @@ export const DeleteButton = styled.button`
 
 export const CancelButton = styled(DeleteButton)`
   background-color: #67727e;
+  cursor: pointer;
+`;
+
+export const StyledPlusIcon = styled(PlusIcon)`
+  cursor: pointer;
+`;
+
+export const StyledMinusIcon = styled(MinusIcon)`
   cursor: pointer;
 `;

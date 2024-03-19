@@ -58,8 +58,6 @@ const getComments = async (req, res) => {
 
 const deleteComment = async (req, res) => {
   const { id } = url.parse(req.url, true).query;
-
-  console.log(id);
   try {
     await pool.query(`DELETE FROM comments WHERE id=${id}`);
 
@@ -82,12 +80,43 @@ const getUsers = async (req, res) => {
   );
 };
 
+const updateScore = async (req, res) => {
+  const { id, score } = url.parse(req.url, true).query;
+
+  try {
+    await pool.query(`UPDATE comments SET score=${score} WHERE id=${id}`);
+
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end();
+  } catch (error) {
+    console.error(error);
+    res.writeHead(500, { "Content-Type": "application/json" });
+  }
+};
+
+const updateComment = async (req, res) => {
+  const { id, content } = url.parse(req.url, true).query;
+
+  try {
+    await pool.query(`UPDATE comments SET content='${content}' WHERE id=${id}`);
+
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end();
+  } catch (error) {
+    console.error(error);
+    res.writeHead(500, { "Content-Type": "application/json" });
+  }
+};
+
 const server = createServer(async (req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const path = parsedUrl.pathname;
 
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST, DELETE");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "OPTIONS, GET, POST, DELETE, PUT"
+  );
   res.setHeader("Access-Control-Max-Age", 2592000); // 30 days
   res.setHeader("Access-Control-Allow-Headers", "*");
 
@@ -105,6 +134,12 @@ const server = createServer(async (req, res) => {
       break;
     case "/delete-comment":
       deleteComment(req, res);
+      break;
+    case "/update-score":
+      updateScore(req, res);
+      break;
+    case "/update-comment":
+      updateComment(req, res);
       break;
     default:
       break;

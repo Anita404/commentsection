@@ -22,29 +22,33 @@ import PlusIcon from "../../../assets/PlusIcon.svg?react";
 import MinusIcon from "../../../assets/MinusIcon.svg?react";
 import ReplyIcon from "../../../assets/ReplyIcon.svg?react";
 import AddComment from "../../AddComment";
+import useBearStore from "../../../stores";
+import { useState } from "react";
 
 const Comment = ({
   data: { currentUser, score, user, createdAt, content, replies },
   width = "730px",
   show = false,
 }) => {
+  const [count, setCount] = useState(score);
+
   return (
     <div>
       <CommentContainer width={width}>
         <StyledLeftContainer>
           <LikeButton>
             <InnerContainer>
-              <PlusIcon onClick={""} />
-              <Number> {score} </Number>
-              <MinusIcon onClick={""} />
+              <PlusIcon onClick={() => setCount(count + 1)} />
+              <Number> {count} </Number>
+              <MinusIcon onClick={() => setCount(count - 1)} />
             </InnerContainer>
           </LikeButton>
         </StyledLeftContainer>
         <StyledRightContainer>
           <Header>
             <ProfileInfo>
-              <ProfilePicture image={user.image.png} />
-              <HandleContainer> {user.username} </HandleContainer>
+              <ProfilePicture />
+              <HandleContainer> </HandleContainer>
               <DateContainer> {createdAt} </DateContainer>
             </ProfileInfo>
             <ReplyButton onClick={""}>
@@ -57,7 +61,7 @@ const Comment = ({
       </CommentContainer>
       {show && (
         <ReplyContainer>
-          <AddComment data={currentUser && currentUser} />
+          {/* <AddComment data={currentUser && currentUser} /> */}
         </ReplyContainer>
       )}
       {replies && (

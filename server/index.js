@@ -14,9 +14,9 @@ const pool = new Pool({
 const getComments = async (req, res) => {
   const comments = await pool.query("SELECT * FROM comments");
 
-  const result = comments.rows.map(comment => {
-    const replies = comment.replies.map(id => )
-  })
+  // const result = comments.rows.map(comment => {
+  //   const replies = comment.replies.map(id => )
+  // })
 
   res.writeHead(200, { "Content-Type": "application/json" });
   res.end(

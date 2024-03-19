@@ -12,19 +12,20 @@ const pool = new Pool({
 });
 
 const postComment = async (req, res) => {
-  const body = req.body;
-
+  let body = "";
+  req.on("data", (chunk) => {
+    body += chunk.toString();
+  });
   req.on("end", async () => {
     const { content, userId } = JSON.parse(body);
-
-    await pool.query(
+    const result = await pool.query(
       `INSERT INTO comments (content, "userId") VALUES ('${content}', ${userId})`
     );
 
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(
       JSON.stringify({
-        message: "Comment added successfully",
+        data: result.rows,
       })
     );
   });
@@ -63,7 +64,7 @@ const server = createServer(async (req, res) => {
   const path = parsedUrl.pathname;
 
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
+  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST");
   res.setHeader("Access-Control-Max-Age", 2592000); // 30 days
   res.setHeader("Access-Control-Allow-Headers", "content-type");
 

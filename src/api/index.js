@@ -11,7 +11,8 @@ export const postComment = async (comment) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(comment),
+    mode: "no-cors",
+    body: JSON.stringify({ content: comment, userId: 3 }),
   });
 
   return data;

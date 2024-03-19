@@ -8,8 +8,8 @@ const Comments = () => {
 
   return (
     <>
-      {comments.map((comment) => (
-        <Comment key={comment.id} data={comment} />
+      {comments.map((comment, index) => (
+        <Comment key={index} data={comment} />
       ))}
     </>
   );

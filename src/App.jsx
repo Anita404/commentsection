@@ -4,8 +4,6 @@ import AddComment from "./components/AddComment";
 import Comments from "./components/Comments";
 import { useEffect } from "react";
 import useCommentsStore from "./stores";
-import { fetchComments } from "./api";
-import { useCallback } from "react";
 
 const Container = styled.div`
   height: 100%;
@@ -18,17 +16,11 @@ const Container = styled.div`
 `;
 
 export default function App() {
-  const { setComments } = useCommentsStore((state) => state);
-
-  const getComments = useCallback(async () => {
-    const comments = await fetchComments();
-
-    setComments(comments.data);
-  }, [setComments]);
+  const { fetch } = useCommentsStore((state) => state);
 
   useEffect(() => {
-    getComments();
-  }, [getComments]);
+    fetch();
+  }, [fetch]);
 
   return (
     <Container>

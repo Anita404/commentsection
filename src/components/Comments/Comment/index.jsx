@@ -16,11 +16,16 @@ import {
   ReplyThread,
   RepliesContainer,
   ReplyContainer,
+  DeleteContainer,
+  EditContainer,
+  ReplyOptions,
 } from "./styles";
 
 import PlusIcon from "../../../assets/PlusIcon.svg?react";
 import MinusIcon from "../../../assets/MinusIcon.svg?react";
 import ReplyIcon from "../../../assets/ReplyIcon.svg?react";
+import DeleteIcon from "../../../assets/DeleteIcon.svg?react";
+import EditIcon from "../../../assets/EditIcon.svg?react";
 import { useState } from "react";
 import AddComment from "../../AddComment";
 
@@ -51,10 +56,23 @@ const Comment = ({
               <HandleContainer> {user.name} </HandleContainer>
               <DateContainer> {createdAt} </DateContainer>
             </ProfileInfo>
-            <ReplyButton onClick={() => setReply(!reply)}>
-              <ReplyIcon />
-              Reply
-            </ReplyButton>
+            {user.id === 3 ? (
+              <ReplyOptions>
+                <DeleteContainer>
+                  <DeleteIcon />
+                  Delete
+                </DeleteContainer>
+                <EditContainer>
+                  <EditIcon />
+                  Edit
+                </EditContainer>
+              </ReplyOptions>
+            ) : (
+              <ReplyButton onClick={() => setReply(!reply)}>
+                <ReplyIcon />
+                Reply
+              </ReplyButton>
+            )}
           </Header>
           <Input>{content}</Input>
         </StyledRightContainer>

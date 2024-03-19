@@ -54,7 +54,9 @@ export const LikeButton = styled.div`
   background-color: #f5f6fa;
 `;
 
-export const StyledRightContainer = styled.div``;
+export const StyledRightContainer = styled.div`
+  width: 100%;
+`;
 
 export const ProfilePicture = styled.div`
   height: 32px;
@@ -119,4 +121,25 @@ export const RepliesContainer = styled.div`
 
 export const ReplyContainer = styled.div`
   margin-bottom: 20px;
+`;
+
+export const DeleteContainer = styled.div`
+  font-weight: 450;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #ed6368;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`;
+
+export const EditContainer = styled(DeleteContainer)`
+  color: #5357b6;
+`;
+
+export const ReplyOptions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
 `;

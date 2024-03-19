@@ -11,17 +11,38 @@ const pool = new Pool({
   port: 5432,
 });
 
-const getComments = async (req, res) => {
-  const comments = await pool.query("SELECT * FROM comments");
+const postComment = async (req, res) => {
+  const body = req.body;
 
-  // const result = comments.rows.map(comment => {
-  //   const replies = comment.replies.map(id => )
-  // })
+  req.on("end", async () => {
+    const { content, userId } = JSON.parse(body);
+
+    await pool.query(
+      `INSERT INTO comments (content, "userId") VALUES ('${content}', ${userId})`
+    );
+
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify({
+        message: "Comment added successfully",
+      })
+    );
+  });
+};
+
+const getComments = async (req, res) => {
+  const comments = await pool.query("SELECT * FROM comments ORDER BY id");
+  const users = await pool.query(`SELECT * FROM "user"`);
+
+  const result = comments.rows.map((comment) => ({
+    ...comment,
+    user: users.rows.find((user) => user.id === comment.userId),
+  }));
 
   res.writeHead(200, { "Content-Type": "application/json" });
   res.end(
     JSON.stringify({
-      data: comments.rows,
+      data: result,
     })
   );
 };
@@ -54,6 +75,9 @@ const server = createServer(async (req, res) => {
       break;
     case "/user":
       getUsers(req, res);
+      break;
+    case "/add-comment":
+      postComment(req, res);
       break;
     default:
       break;

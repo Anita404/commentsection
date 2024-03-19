@@ -9,7 +9,7 @@ const Comments = () => {
   return (
     <>
       {comments.map((comment) => (
-        <Comment show={true} key={comment.id} data={comment} />
+        <Comment key={comment.id} data={comment} />
       ))}
     </>
   );

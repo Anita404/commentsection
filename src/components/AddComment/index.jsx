@@ -9,9 +9,11 @@ import {
   SendButton,
 } from "./styles";
 import { useEffect } from "react";
+import { postComment } from "../../api";
 
-const AddComment = ({ data: { currentUser } }) => {
+const AddComment = ({ data: { currentUser }, submitButtonText = "send" }) => {
   const [screenWidth, setScreenWidth] = useState(innerWidth);
+  const [content, setContent] = useState("");
 
   useEffect(() => {
     const updateScreenWidth = setScreenWidth(innerWidth);
@@ -41,7 +43,9 @@ const AddComment = ({ data: { currentUser } }) => {
           <InputContainer>
             <InputText placeholder="Add a comment..." />
           </InputContainer>
-          <SendButton> SEND </SendButton>
+          <SendButton onClick={() => postComment(content)}>
+            {submitButtonText}
+          </SendButton>
         </>
       )}
     </CommentContainer>

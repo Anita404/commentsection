@@ -67,8 +67,8 @@ export const ProfilePicture = styled.div`
 
 export const InnerContainer = styled.div`
   height: 98.5px;
-  padding-left: 15px;
   display: flex;
+  align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
 `;

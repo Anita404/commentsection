@@ -21,16 +21,16 @@ import {
 import PlusIcon from "../../../assets/PlusIcon.svg?react";
 import MinusIcon from "../../../assets/MinusIcon.svg?react";
 import ReplyIcon from "../../../assets/ReplyIcon.svg?react";
-import AddComment from "../../AddComment";
-import useBearStore from "../../../stores";
 import { useState } from "react";
+import AddComment from "../../AddComment";
 
 const Comment = ({
-  data: { currentUser, score, user, createdAt, content, replies },
+  data: { score, createdAt, content, replies, user },
   width = "730px",
-  show = false,
 }) => {
   const [count, setCount] = useState(score);
+
+  const [reply, setReply] = useState(false);
 
   return (
     <div>
@@ -40,18 +40,18 @@ const Comment = ({
             <InnerContainer>
               <PlusIcon onClick={() => setCount(count + 1)} />
               <Number> {count} </Number>
-              <MinusIcon onClick={() => setCount(count - 1)} />
+              <MinusIcon onClick={() => count !== 0 && setCount(count - 1)} />
             </InnerContainer>
           </LikeButton>
         </StyledLeftContainer>
         <StyledRightContainer>
           <Header>
             <ProfileInfo>
-              <ProfilePicture />
-              <HandleContainer> </HandleContainer>
+              <ProfilePicture image={user.image} />
+              <HandleContainer> {user.name} </HandleContainer>
               <DateContainer> {createdAt} </DateContainer>
             </ProfileInfo>
-            <ReplyButton onClick={""}>
+            <ReplyButton onClick={() => setReply(!reply)}>
               <ReplyIcon />
               Reply
             </ReplyButton>
@@ -59,9 +59,20 @@ const Comment = ({
           <Input>{content}</Input>
         </StyledRightContainer>
       </CommentContainer>
-      {show && (
+      {reply && (
         <ReplyContainer>
-          {/* <AddComment data={currentUser && currentUser} /> */}
+          <AddComment
+            submitButtonText="reply"
+            data={{
+              currentUser: {
+                image: {
+                  png: "./avatars/image-juliusomo.png",
+                  webp: "./avatars/image-juliusomo.webp",
+                },
+                username: "juliusomo",
+              },
+            }}
+          />
         </ReplyContainer>
       )}
       {replies && (

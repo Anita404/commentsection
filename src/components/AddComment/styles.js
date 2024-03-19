@@ -4,7 +4,7 @@ export const CommentContainer = styled.div`
   height: 120px;
   width: 730px;
   position: sticky;
-  bottom: 10px;
+  bottom: 0px;
   background-color: #fff;
   border-radius: 8px;
   display: flex;
@@ -61,4 +61,5 @@ export const SendButton = styled.button`
   font-weight: 500;
   color: white;
   cursor: pointer;
+  text-transform: uppercase;
 `;
